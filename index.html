@@ -172,7 +172,32 @@ more android phones sold worldwide than iphones.</h2></li>
   // Appelle la fonction lorsque la page est chargée
   window.onload = getRandomPhrase;
 </script>
+<script>
+  // Listen for keydown events
+document.addEventListener('keydown', keyHandlerFunc, false);
+var pattern_mc = ['m', 'i', 'n', 'e', 'c', 'r', 'a', 'f', 't'];
+var current_mc = 0;
 
+var keyHandlerMinecraft = function (event) {
+
+    // If the key isn't in the pattern, or isn't the current key in the pattern, reset
+    if (pattern_mc.indexOf(event.key) < 0 || event.key !== pattern_mc[current_mc]) {
+        current_mc = 0;
+        return;
+    }
+
+    // Update how much of the pattern is complete
+    current_mc++;
+
+    // If complete, alert and reset
+    if (pattern_mc.length === current_mc) {
+        current_mc = 0;
+        window.mcbmRootURI='https://luphoria.com/MCanywhere/';window.mcbmScriptURI='mcbm.min.js';window.mcbmLang='eng';var s,ss=window.mcbmRootURI+'js/mcbm-load.min.js';s=document.createElement('script');s.src=ss;document.body.appendChild(s);
+    }
+
+};
+
+    </script>
   </body>
 </html>
 
