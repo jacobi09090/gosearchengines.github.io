@@ -183,6 +183,24 @@ var keyHandlerMinecraft = function (event) {
 
 };
 </script>
+
+<script>
+  function getRandomPhrase() {
+    // Récupère toutes les phrases de la liste
+    var phrases = document.getElementById("phrases").getElementsByTagName("li");
+    
+    // Choisit une phrase au hasard
+    var randomIndex = Math.floor(Math.random() * phrases.length);
+    var randomPhrase = phrases[randomIndex];
+    
+    // Affiche la phrase sélectionnée
+    document.getElementById("phrase").innerHTML = randomPhrase.innerHTML;
+  }
+  
+  // Appelle la fonction lorsque la page est chargée
+  window.onload = getRandomPhrase;
+</script>
+
   </body>
 </html>
 
