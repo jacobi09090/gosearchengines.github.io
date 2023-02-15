@@ -61,8 +61,10 @@ alt="" title="Goooooooooooooooooo!" style="float:center-top;margin:0 10px 10px;"
 <br>
 
 <center>
-<h4>Welcome to the<span class="badge bg-secondary">New</span>Go!</h4>
-   </center>
+  <div>
+    <span id="texte"></span>
+  </div>
+</center>
 <style>
 #standard {
   display: flex;
@@ -201,7 +203,84 @@ var keyHandlerMinecraft = function (event) {
   // Appelle la fonction lorsque la page est chargée
   window.onload = getRandomPhrase;
 </script>
+<style>
+    #texte {
+      display: inline-block;
+      font-size: 24px;
+      border-right: 2px solid black;
+      padding-right: 10px;
+    }
 
+    #curseur {
+      display: inline-block;
+      width: 2px;
+      height: 24px;
+      background-color: black;
+      animation: clignoter 1s infinite;
+    }
+
+    @keyframes clignoter {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+  <script>
+    const phrases = ['to escape tracker', 'to search in private', 'to navigate without dangerous website','(and without innapropriate website)', 'to search without ADS', 'to find website more easy with filter','to espace GAFAM']; // Les phrases à écrire
+    let index = 0; // L'index de la phrase courante
+    let speed = 100; // La vitesse d'écriture en millisecondes
+    let deleting = false; // Variable pour savoir si on est en train de supprimer la phrase
+    let currentPhrase = ''; // Variable pour stocker la phrase en cours d'écriture
+    let prefix = 'a new way '; // La partie qui ne sera jamais supprimée
+
+    function ecrire() {
+      const texte = document.getElementById('texte');
+      if (deleting) {
+        texte.textContent = prefix + currentPhrase.slice(0, -1); // Supprimer le dernier caractère
+        currentPhrase = texte.textContent.slice(prefix.length);
+        if (currentPhrase === '') {
+          deleting = false;
+          index = (index + 1) % phrases.length; // Passer à la phrase suivante
+          setTimeout(ecrire, 500); // Attendre un court délai avant de commencer la prochaine phrase
+        } else {
+          setTimeout(ecrire, speed / 2); // Attendre la moitié du temps pour effacer chaque caractère
+        }
+      } else {
+        const phrase = phrases[index];
+        currentPhrase = '';
+        texte.textContent = prefix;
+        for (let i = 0; i < phrase.length; i++) {
+          setTimeout(() => {
+            currentPhrase += phrase.charAt(i);
+            texte.textContent = prefix + currentPhrase;
+            if (i === phrase.length - 1) {
+              deleting = true;
+              setTimeout(ecrire, 1000); // Attendre une seconde avant de commencer à supprimer la phrase
+            }
+          }, speed * i);
+        }
+      }
+    }
+
+    ecrire(); // Commencer l'écriture automatique
+  </script>
+<style>
+#texte {
+  font-family: Arial;
+}
+@media (max-width: 768px) {
+  #texte {
+    font-size: 0.8em;
+  }
+}
+
+</style>
   </body>
 </html>
 
